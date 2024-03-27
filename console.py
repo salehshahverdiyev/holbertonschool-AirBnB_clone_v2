@@ -30,6 +30,20 @@ class HBNBCommand(cmd.Cmd):
              'latitude': float, 'longitude': float
             }
 
+    def num_or_float(self, arg: str):
+        """
+        Method to convert str to int or float
+        """
+        try:
+            return int(arg)
+        except Exception:
+            pass
+
+        try:
+            return float(arg)
+        except Exception:
+            return arg
+
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
@@ -114,17 +128,33 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class"""
-        if not args:
-            print("** class name missing **")
-            return
-        elif args not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
-        print(new_instance.id)
-        storage.save()
+       """ Create an object of any class"""
+       if not args:
+           print("** class name missing **")
+           return
+       
+       args = args.split(' ')
+       className = args[0]
+       
+       if className not in HBNBCommand.classes:
+           print("** class doesn't exist **")
+           return
+       
+       # Getting attributes
+       attributes = {}
+       for attr in args[1:]:
+           new_dict = attr.split('=', 1)
+           attributes[new_dict[0]] = new_dict[1]
+           
+       new_instance = HBNBCommand.classes[className]()
+       
+       for key, value in attributes.items():
+           value = value.strip("\"'").replace("_", " ")
+           value = self.num_or_float(value)
+           setattr(new_instance, key, value)
+           
+       print(new_instance.id)
+       new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
