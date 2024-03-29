@@ -9,3 +9,4 @@ class User(BaseModel):
     password = ''
     first_name = ''
     last_name = ''
+    places = relationship('Place', backref='user', cascade="delete")
