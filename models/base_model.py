@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """This module defines a base class for all models in our hbnb clone"""
 from uuid import uuid4
 from datetime import datetime
