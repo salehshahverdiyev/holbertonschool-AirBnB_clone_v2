@@ -121,10 +121,11 @@ class TestPlace(unittest.TestCase):
         """Test amenities attribute."""
         key = "{}.{}".format(type(self.amenity).__name__, self.amenity.id)
         self.filestorage._FileStorage__objects[key] = self.amenity
-        self.place.amenities.append(self.amenity.id)
+        self.place.amenities.append(self.amenity)
         amenities = self.place.amenities
         self.assertTrue(list, type(amenities))
         self.assertIn(self.amenity, amenities)
+
 
     def test_is_subclass(self):
         """Check that Place is a subclass of BaseModel."""
