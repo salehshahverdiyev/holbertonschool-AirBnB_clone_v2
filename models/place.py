@@ -23,8 +23,6 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    amenity_ids = []
-    # user = relationship("User", back_populates="places")
     reviews = relationship("Review", backref="place", cascade="all, delete")
     place_amenity = Table('place_amenity', Base.metadata,
                           Column('place_id', String(60),
@@ -56,8 +54,4 @@ class Place(BaseModel, Base):
         def amenities(self, amenity):
             """Setter function for amenities"""
             if isinstance(amenity, Amenity):
-                storage = FileStorage()
-                amenity_id = amenity.id
-                self.amenity_ids.append(amenity_id)
-                storage.new(amenity)
-                storage.save()
+                self.amenity_ids.append(amenity.id)
