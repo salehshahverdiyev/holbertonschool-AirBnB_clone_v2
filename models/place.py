@@ -57,3 +57,6 @@ class Place(BaseModel, Base):
             """Setter function for amenities"""
             if isinstance(amenity, Amenity):
                 self.amenity_ids.append(amenity.id)
+                storage = FileStorage()
+                storage.new(amenity)
+                storage.save()
