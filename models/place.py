@@ -52,7 +52,6 @@ class Place(BaseModel, Base):
             return [storage.all(Amenity).get(amenity_id)
                     for amenity_id in self.amenity_ids]
 
-
         @amenities.setter
         def amenities(self, amenity):
             """Setter function for amenities"""
