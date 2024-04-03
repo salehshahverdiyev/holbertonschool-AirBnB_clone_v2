@@ -126,7 +126,6 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(list, type(amenities))
         self.assertIn(self.amenity, amenities)
 
-
     def test_is_subclass(self):
         """Check that Place is a subclass of BaseModel."""
         self.assertTrue(issubclass(Place, BaseModel))
