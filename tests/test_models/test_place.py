@@ -121,7 +121,7 @@ class TestPlace(unittest.TestCase):
         """Test amenities attribute."""
         key = "{}.{}".format(type(self.amenity).__name__, self.amenity.id)
         self.filestorage._FileStorage__objects[key] = self.amenity
-        self.place.amenities.append(self.amenity)
+        self.place.amenities = self.amenity
         amenities = self.place.amenities
         self.assertTrue(list, type(amenities))
         self.assertIn(self.amenity, amenities)
