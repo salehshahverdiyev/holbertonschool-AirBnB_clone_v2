@@ -49,8 +49,9 @@ class Place(BaseModel, Base):
         def amenities(self):
             """Getter function for amenities"""
             storage = FileStorage()
-            return [storage.get(Amenity, amenity_id)
+            return [storage.all(Amenity).get(amenity_id)
                     for amenity_id in self.amenity_ids]
+
 
         @amenities.setter
         def amenities(self, amenity):
